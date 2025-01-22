@@ -1,12 +1,15 @@
-import React from 'react';
-import KaiLogo from '../mission/KaiLogo';
-import SocialLinks from '../common/SocialLinks';
+import React from "react";
+import KaiLogo from "../mission/KaiLogo";
+import SocialLinks from "../common/SocialLinks";
+import { useScrollToTop } from "../../hooks/useScrollToTop";
 
 interface PageLayoutProps {
   children: React.ReactNode;
 }
 
 const PageLayout = ({ children }: PageLayoutProps) => {
+  useScrollToTop();
+
   return (
     <div className="relative min-h-screen">
       {children}
