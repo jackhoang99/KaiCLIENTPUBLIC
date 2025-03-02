@@ -27,7 +27,6 @@ const App: React.FC = () => {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>
-        <CookieBanner /> {/* Add the Cookie Banner */}
       </div>
     </Router>
   );
