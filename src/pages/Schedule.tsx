@@ -14,7 +14,9 @@ const Schedule = () => {
     const existingIntegration = document.querySelector(
       "[data-mariana-integrations]"
     );
-    if (existingIntegration) existingIntegration.innerHTML = "";
+    if (existingIntegration) {
+      existingIntegration.innerHTML = "";
+    }
 
     window.MarianaIntegrations = undefined;
 
@@ -38,7 +40,6 @@ const Schedule = () => {
     loadScript("polyfills")
       .then(() => loadScript("js"))
       .then(() => {
-        console.log("✅ Mariana Tek scripts loaded!");
         setIntegrationKey((prevKey) => prevKey + 1);
         setLoading(false);
       })
@@ -47,20 +48,6 @@ const Schedule = () => {
         setLoading(false);
       });
   }, [location.search]); // Detects query string changes like `_mt`
-
-  // Debugging: Check if Mariana Tek actually loads
-  useEffect(() => {
-    const checkMarianaLoaded = setInterval(() => {
-      if (window.MarianaIntegrations) {
-        clearInterval(checkMarianaLoaded);
-        console.log("✅ Mariana Integrations initialized!");
-      }
-    }, 500);
-  }, []);
-
-  // Extract `_mt=` correctly
-  const params = new URLSearchParams(location.search);
-  const marianaPath = params.get("_mt") || "/schedule/daily";
 
   return (
     <PageLayout>
@@ -89,7 +76,9 @@ const Schedule = () => {
               ) : (
                 <div
                   key={integrationKey}
-                  data-mariana-integrations={marianaPath}
+                  data-mariana-integrations={decodeURIComponent(
+                    location.search.split("_mt=")[1] || "/schedule/daily"
+                  )}
                 />
               )}
             </div>
