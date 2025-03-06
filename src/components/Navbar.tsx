@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import NavLink from "./navigation/NavLink";
 import Logo from "./ui/Logo";
 
 const TENANT_NAME = "kailagreestudio"; // Replace with your actual Mariana Tek tenant name
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
-  const navigate = useNavigate();
 
-  // Close menu when location changes
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location]);
+  // Close menu when clicking a link
+  const closeMenu = () => setIsMenuOpen(false);
 
   // Ensure Mariana Tek script is fully loaded before execution continues
   const loadMarianaTek = () => {
@@ -45,30 +39,7 @@ const Navbar = () => {
 
   useEffect(() => {
     loadMarianaTek().then(() => console.log("✅ Mariana Tek scripts loaded!"));
-
-    // Debugging: Check if MarianaIntegrations is loaded properly
-    const checkMarianaLoaded = setInterval(() => {
-      if (window.MarianaIntegrations) {
-        clearInterval(checkMarianaLoaded);
-        console.log("✅ Mariana Integrations initialized!");
-      }
-    }, 500);
   }, []);
-
-  // Handle navigation updates (without manual history management)
-  const handleNavigation = async (path) => {
-    // Check if the current path is different from the target
-    if (location.pathname !== path) {
-      navigate(path); // Let React Router handle the URL update
-    }
-
-    // Delay the reload to ensure location is updated
-    setTimeout(() => {
-      if (window.location.pathname === path) {
-        window.location.reload();
-      }
-    }, 300); // Adjust timeout as needed to ensure page reloads properly
-  };
 
   // Styling for Nav Links
   const navLinkStyle =
@@ -79,48 +50,30 @@ const Navbar = () => {
   return (
     <nav className="fixed w-full z-50 px-4 md:px-6 py-4 bg-transparent">
       <div className="flex justify-between items-center">
-        <Link to="/">
+        <a href="/" className="inline-block">
           <Logo />
-        </Link>
+        </a>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-12 text-white">
-          <NavLink
-            to="/"
-            className={location.pathname === "/" ? activeStyle : navLinkStyle}
-          >
+          <a href="/" className={navLinkStyle}>
             Home
-          </NavLink>
-          <button
-            onClick={() => handleNavigation("/schedule")}
-            className={
-              location.pathname.includes("/schedule")
-                ? activeStyle
-                : navLinkStyle
-            }
-          >
+          </a>
+          <a href="/schedule" className={navLinkStyle}>
             Schedule
-          </button>
-          <button
-            onClick={() => handleNavigation("/buy")}
-            className={
-              location.pathname.includes("/buy") ? activeStyle : navLinkStyle
-            }
-          >
+          </a>
+          <a href="/buy" className={navLinkStyle}>
             Buy
-          </button>
-          <NavLink to="/about">About</NavLink>
-          <NavLink to="/faq">FAQ</NavLink>
-          <button
-            onClick={() => handleNavigation("/account")}
-            className={
-              location.pathname.includes("/account")
-                ? activeStyle
-                : navLinkStyle
-            }
-          >
+          </a>
+          <a href="/about" className={navLinkStyle}>
+            About
+          </a>
+          <a href="/faq" className={navLinkStyle}>
+            FAQ
+          </a>
+          <a href="/account" className={navLinkStyle}>
             Account
-          </button>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -142,42 +95,24 @@ const Navbar = () => {
             className="absolute top-full left-0 right-0 bg-black/90 py-6 px-4 md:hidden"
           >
             <div className="flex flex-col space-y-6 text-white text-center">
-              <NavLink to="/" onClick={() => setIsMenuOpen(false)}>
+              <a href="/" onClick={closeMenu} className={navLinkStyle}>
                 Home
-              </NavLink>
-              <button
-                onClick={() => {
-                  handleNavigation("/schedule");
-                  setIsMenuOpen(false);
-                }}
-                className={navLinkStyle}
-              >
+              </a>
+              <a href="/schedule" onClick={closeMenu} className={navLinkStyle}>
                 Schedule
-              </button>
-              <button
-                onClick={() => {
-                  handleNavigation("/buy");
-                  setIsMenuOpen(false);
-                }}
-                className={navLinkStyle}
-              >
+              </a>
+              <a href="/buy" onClick={closeMenu} className={navLinkStyle}>
                 Buy
-              </button>
-              <NavLink to="/about" onClick={() => setIsMenuOpen(false)}>
+              </a>
+              <a href="/about" onClick={closeMenu} className={navLinkStyle}>
                 About
-              </NavLink>
-              <NavLink to="/faq" onClick={() => setIsMenuOpen(false)}>
+              </a>
+              <a href="/faq" onClick={closeMenu} className={navLinkStyle}>
                 FAQ
-              </NavLink>
-              <button
-                onClick={() => {
-                  handleNavigation("/account");
-                  setIsMenuOpen(false);
-                }}
-                className={navLinkStyle}
-              >
+              </a>
+              <a href="/account" onClick={closeMenu} className={navLinkStyle}>
                 Account
-              </button>
+              </a>
             </div>
           </motion.div>
         )}
