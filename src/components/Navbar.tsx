@@ -1,73 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import NavLink from "./navigation/NavLink";
 import Logo from "./ui/Logo";
 
-const TENANT_NAME = "kailagreestudio"; // Replace with your actual Mariana Tek tenant name
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
 
   // Close menu when location changes
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
 
-  // Ensure Mariana Tek script is fully loaded before execution continues
-  const loadMarianaTek = () => {
-    return new Promise((resolve) => {
-      if (document.querySelector('script[src*="marianaiframes"]')) {
-        resolve();
-        return;
-      }
-
-      const scripts = ["polyfills", "js"];
-      let loadedScripts = 0;
-
-      scripts.forEach((src) => {
-        const script = document.createElement("script");
-        script.src = `https://${TENANT_NAME}.marianaiframes.com/${src}?t=${new Date().getTime()}`;
-        script.async = true;
-        script.onload = () => {
-          loadedScripts++;
-          if (loadedScripts === scripts.length) {
-            resolve();
-          }
-        };
-        document.body.appendChild(script);
-      });
-    });
-  };
-
-  useEffect(() => {
-    loadMarianaTek().then(() => console.log("✅ Mariana Tek scripts loaded!"));
-
-    // Debugging: Check if MarianaIntegrations is loaded properly
-    const checkMarianaLoaded = setInterval(() => {
-      if (window.MarianaIntegrations) {
-        clearInterval(checkMarianaLoaded);
-        console.log("✅ Mariana Integrations initialized!");
-      }
-    }, 500);
-  }, []);
-
-  // Handle navigation updates
-  const handleNavigation = async (path) => {
-    if (location.pathname !== path) {
-      navigate(path); // Update URL using React Router
-      window.history.pushState({}, "", path); // Ensure browser-level URL update
-    }
-
-    // Wait for the URL update before reloading
-    setTimeout(() => {
-      if (window.location.pathname === path) {
-        window.location.reload();
-      }
-    }, 300);
+  // Function to navigate directly to external URLs
+  const handleExternalNavigation = (url) => {
+    window.location.href = url; // Navigate to external page
   };
 
   // Styling for Nav Links
@@ -92,32 +41,28 @@ const Navbar = () => {
             Home
           </NavLink>
           <button
-            onClick={() => handleNavigation("/schedule")}
-            className={
-              location.pathname.includes("/schedule")
-                ? activeStyle
-                : navLinkStyle
+            onClick={() =>
+              handleExternalNavigation("https://kailagreestudio.com/schedule")
             }
+            className={navLinkStyle}
           >
             Schedule
           </button>
           <button
-            onClick={() => handleNavigation("/buy")}
-            className={
-              location.pathname.includes("/buy") ? activeStyle : navLinkStyle
+            onClick={() =>
+              handleExternalNavigation("https://kailagreestudio.com/buy")
             }
+            className={navLinkStyle}
           >
             Buy
           </button>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/faq">FAQ</NavLink>
           <button
-            onClick={() => handleNavigation("/account")}
-            className={
-              location.pathname.includes("/account")
-                ? activeStyle
-                : navLinkStyle
+            onClick={() =>
+              handleExternalNavigation("https://kailagreestudio.com/account")
             }
+            className={navLinkStyle}
           >
             Account
           </button>
@@ -147,7 +92,9 @@ const Navbar = () => {
               </NavLink>
               <button
                 onClick={() => {
-                  handleNavigation("/schedule");
+                  handleExternalNavigation(
+                    "https://kailagreestudio.com/schedule"
+                  );
                   setIsMenuOpen(false);
                 }}
                 className={navLinkStyle}
@@ -156,7 +103,7 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => {
-                  handleNavigation("/buy");
+                  handleExternalNavigation("https://kailagreestudio.com/buy");
                   setIsMenuOpen(false);
                 }}
                 className={navLinkStyle}
@@ -171,7 +118,9 @@ const Navbar = () => {
               </NavLink>
               <button
                 onClick={() => {
-                  handleNavigation("/account");
+                  handleExternalNavigation(
+                    "https://kailagreestudio.com/account"
+                  );
                   setIsMenuOpen(false);
                 }}
                 className={navLinkStyle}
