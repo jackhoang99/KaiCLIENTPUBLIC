@@ -41,7 +41,6 @@ const Navbar = () => {
     if (location.pathname !== path) {
       navigate(path); // Update the URL without a full refresh
     }
-
     setTimeout(() => {
       window.location.reload(); // Ensure Mariana Tek reloads correctly
     }, 300);
