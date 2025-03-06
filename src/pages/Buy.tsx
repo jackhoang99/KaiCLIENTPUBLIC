@@ -4,70 +4,62 @@ import { motion } from "framer-motion";
 import Container from "../components/layout/Container";
 import PageLayout from "../components/layout/PageLayout";
 
+const TENANT_NAME = "kailagreestudio";
+
 const Buy = () => {
-  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
+  const [integrationKey, setIntegrationKey] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const params = new URLSearchParams(location.search);
+  const marianaPath = params.get("_mt") || "/buy/48717";
 
   useEffect(() => {
-    let isMounted = true;
+    const existingIntegration = document.querySelector(
+      "[data-mariana-integrations]"
+    );
+    if (existingIntegration) existingIntegration.innerHTML = "";
 
-    const initializeMarianaTek = () => {
-      if (!isMounted) return;
+    window.MarianaIntegrations = undefined;
 
-      // Avoid duplicate script loading
-      if (document.querySelector('script[src*="marianaiframes"]')) {
-        setIsLoading(false);
-        return;
-      }
-
-      window.MarianaIntegrations = undefined;
-
-      const loadScript = (src: string) => {
-        return new Promise((resolve, reject) => {
-          const script = document.createElement("script");
-          script.src = `https://kailagreestudio.marianaiframes.com/${src}?t=${new Date().getTime()}`;
-          script.async = true;
-
-          script.onload = () => resolve(true);
-          script.onerror = () =>
-            reject(new Error(`Failed to load script: ${src}`));
-
-          document.body.appendChild(script);
-        });
-      };
-
-      const loadScripts = async () => {
-        try {
-          if (!isMounted) return;
-
-          await loadScript("polyfills");
-          await loadScript("js");
-
-          if (isMounted) {
-            setIsLoading(false);
-          }
-        } catch (error) {
-          console.error("Error loading Mariana Tek scripts:", error);
-          if (isMounted) {
-            setIsLoading(false);
-          }
+    const loadScript = (src) => {
+      return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src*="${src}"]`)) {
+          resolve(true);
+          return;
         }
-      };
 
-      setIsLoading(true);
-      loadScripts();
+        const script = document.createElement("script");
+        script.src = `https://${TENANT_NAME}.marianaiframes.com/${src}?t=${new Date().getTime()}`;
+        script.async = true;
+        script.onload = () => resolve(true);
+        script.onerror = () =>
+          reject(new Error(`Failed to load script: ${src}`));
+        document.body.appendChild(script);
+      });
     };
 
-    initializeMarianaTek();
+    loadScript("polyfills")
+      .then(() => loadScript("js"))
+      .then(() => {
+        console.log("✅ Mariana Tek scripts loaded!");
+        setIntegrationKey((prevKey) => prevKey + 1);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }, [location.search]);
 
-    return () => {
-      isMounted = false;
-      document
-        .querySelectorAll('script[src*="marianaiframes"]')
-        .forEach((script) => script.remove());
-      window.MarianaIntegrations = undefined;
-    };
-  }, [location.key]); // Reload when location changes
+  useEffect(() => {
+    const checkMarianaLoaded = setInterval(() => {
+      if (window.MarianaIntegrations) {
+        clearInterval(checkMarianaLoaded);
+        console.log("✅ Mariana Integrations initialized!");
+      }
+    }, 500);
+  }, []);
 
   return (
     <PageLayout>
@@ -89,28 +81,19 @@ const Buy = () => {
                 Transform your fitness journey with our signature Lagree method
                 classes. Choose the package that best fits your lifestyle.
               </p>
-              {/* Background Decorations */}
-              <div className="absolute -right-20 top-0 w-40 h-40 bg-black/5 rounded-full blur-3xl -z-10" />
-              <div className="absolute -left-20 bottom-0 w-40 h-40 bg-black/5 rounded-full blur-3xl -z-10" />
             </motion.div>
 
-            {/* Mariana Tek Integration */}
             <div className="mt-20 max-w-4xl mx-auto">
-              {isLoading ? (
-                <div className="text-center py-12">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto"></div>
-                  <p className="mt-4 text-gray-600">Loading packages...</p>
+              {loading ? (
+                <div className="flex justify-center items-center">
+                  <div className="w-12 h-12 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
                 </div>
               ) : (
-                <div data-mariana-integrations="/buy/48717"></div>
+                <div
+                  key={integrationKey}
+                  data-mariana-integrations={marianaPath}
+                />
               )}
-
-              <noscript>
-                Please enable JavaScript to view the{" "}
-                <a href="https://marianatek.com/?ref_noscript" rel="nofollow">
-                  Web Integrations by Mariana Tek
-                </a>
-              </noscript>
             </div>
           </Container>
         </div>
