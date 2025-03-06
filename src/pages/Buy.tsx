@@ -14,7 +14,6 @@ const Buy = () => {
     const initializeMarianaTek = () => {
       if (!isMounted) return;
 
-      // Avoid duplicate script loading
       if (document.querySelector('script[src*="marianaiframes"]')) {
         setIsLoading(false);
         return;
@@ -22,7 +21,7 @@ const Buy = () => {
 
       window.MarianaIntegrations = undefined;
 
-      const loadScript = (src: string) => {
+      const loadScript = (src) => {
         return new Promise((resolve, reject) => {
           const script = document.createElement("script");
           script.src = `https://kailagreestudio.marianaiframes.com/${src}?t=${new Date().getTime()}`;
@@ -67,50 +66,36 @@ const Buy = () => {
         .forEach((script) => script.remove());
       window.MarianaIntegrations = undefined;
     };
-  }, [location.key]); // Reload when location changes
+  }, [location.key]);
 
   return (
     <PageLayout>
       <div className="min-h-screen bg-sand">
-        <div className="pt-32 pb-20">
+        <div className="relative h-[250px] md:h-[400px] w-full">
+          <div className="absolute inset-0 bg-black/40 z-10" />
+          <img
+            src="https://static.wixstatic.com/media/8c7d69_35e0e42e65954df7a4e29eea84f728bb~mv2.jpg/v1/fill/w_1202,h_918,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AdobeStock_227531282.jpg"
+            alt="Buy Header"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 z-20 flex items-center justify-center">
+            <h1 className="font-display text-5xl md:text-8xl text-white tracking-wider">
+              BUY
+            </h1>
+          </div>
+        </div>
+
+        <div className="py-8 md:py-20">
           <Container>
-            <motion.div
-              className="mb-16 relative text-center md:text-left"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <h1 className="font-display text-6xl md:text-[120px] tracking-wider mb-6">
-                BOOK YOUR
-                <br />
-                EXPERIENCE
-              </h1>
-              <p className="text-xl md:text-2xl font-light tracking-wide max-w-2xl">
-                Transform your fitness journey with our signature Lagree method
-                classes. Choose the package that best fits your lifestyle.
-              </p>
-              {/* Background Decorations */}
-              <div className="absolute -right-20 top-0 w-40 h-40 bg-black/5 rounded-full blur-3xl -z-10" />
-              <div className="absolute -left-20 bottom-0 w-40 h-40 bg-black/5 rounded-full blur-3xl -z-10" />
-            </motion.div>
-
-            {/* Mariana Tek Integration */}
-            <div className="mt-20 max-w-4xl mx-auto">
-              {isLoading ? (
-                <div className="text-center py-12">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto"></div>
-                  <p className="mt-4 text-gray-600">Loading packages...</p>
-                </div>
-              ) : (
-                <div data-mariana-integrations="/buy"></div>
-              )}
-
-              <noscript>
-                Please enable JavaScript to view the{" "}
-                <a href="https://marianatek.com/?ref_noscript" rel="nofollow">
-                  Web Integrations by Mariana Tek
-                </a>
-              </noscript>
+            <div className="max-w-4xl mx-auto">
+              <iframe
+                src="https://kailagreestudio.marianaiframes.com/iframe/buy/48717"
+                width="100%"
+                height="800"
+                frameBorder="0"
+                allowFullScreen
+                title="Buy"
+              ></iframe>
             </div>
           </Container>
         </div>

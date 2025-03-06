@@ -24,7 +24,7 @@ const Schedule = () => {
           <Container>
             <div className="max-w-4xl mx-auto">
               <iframe
-                src="https://kailagreestudio.marianaiframes.com/iframe/schedule/daily/48541"
+                src="https://kailagreestudio.marianaiframes.com/iframe/schedule/daily/48717"
                 width="100%"
                 height="800"
                 frameBorder="0"
