@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import NavLink from "./navigation/NavLink";
 import Logo from "./ui/Logo";
 
+const TENANT_NAME = "kailagreestudio"; // Replace with your actual Mariana Tek tenant name
+
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -15,19 +17,34 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [location]);
 
-  // Function to handle navigation properly
-  const handleNavigation = (path) => {
-    const externalRoutes = {
-      "/schedule": "https://kailagreestudio.com/schedule",
-      "/buy": "https://kailagreestudio.com/buy",
-      "/account": "https://kailagreestudio.com/account",
+  // Inject Mariana Tek script when Navbar mounts
+  useEffect(() => {
+    const loadMarianaTek = () => {
+      if (document.querySelector('script[src*="marianaiframes"]')) {
+        return; // Script already loaded
+      }
+
+      const scripts = ["polyfills", "js"];
+      scripts.forEach((src) => {
+        const script = document.createElement("script");
+        script.src = `https://${TENANT_NAME}.marianaiframes.com/${src}?t=${new Date().getTime()}`;
+        script.async = true;
+        document.body.appendChild(script);
+      });
     };
 
-    if (externalRoutes[path]) {
-      window.location.assign(externalRoutes[path]); // Force full page navigation
-    } else {
-      navigate(path); // Use React Router for internal pages
+    loadMarianaTek();
+  }, []);
+
+  // Function to update URL & reload page
+  const handleNavigation = (path) => {
+    if (location.pathname !== path) {
+      navigate(path); // Update the URL without a full refresh
     }
+
+    setTimeout(() => {
+      window.location.reload(); // Ensure Mariana Tek reloads correctly
+    }, 300);
   };
 
   // Styling for Nav Links
@@ -53,13 +70,19 @@ const Navbar = () => {
           </NavLink>
           <button
             onClick={() => handleNavigation("/schedule")}
-            className={navLinkStyle}
+            className={
+              location.pathname.includes("/schedule")
+                ? activeStyle
+                : navLinkStyle
+            }
           >
             Schedule
           </button>
           <button
             onClick={() => handleNavigation("/buy")}
-            className={navLinkStyle}
+            className={
+              location.pathname.includes("/buy") ? activeStyle : navLinkStyle
+            }
           >
             Buy
           </button>
@@ -67,7 +90,11 @@ const Navbar = () => {
           <NavLink to="/faq">FAQ</NavLink>
           <button
             onClick={() => handleNavigation("/account")}
-            className={navLinkStyle}
+            className={
+              location.pathname.includes("/account")
+                ? activeStyle
+                : navLinkStyle
+            }
           >
             Account
           </button>
