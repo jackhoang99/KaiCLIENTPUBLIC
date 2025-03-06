@@ -60,8 +60,7 @@ const Schedule = () => {
 
   // Extract `_mt=` correctly
   const params = new URLSearchParams(location.search);
-  const marianaPath =
-    params.get("_mt") || "/schedule/daily/48541?locations=48717";
+  const marianaPath = params.get("_mt") || "/schedule/daily";
 
   return (
     <PageLayout>

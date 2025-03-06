@@ -12,7 +12,7 @@ const Buy = () => {
   const [loading, setLoading] = useState(true);
 
   const params = new URLSearchParams(location.search);
-  const marianaPath = params.get("_mt") || "/buy/48717";
+  const marianaPath = params.get("_mt") || "/buy";
 
   useEffect(() => {
     const existingIntegration = document.querySelector(
@@ -94,6 +94,13 @@ const Buy = () => {
                   data-mariana-integrations={marianaPath}
                 />
               )}
+
+              <noscript>
+                Please enable JavaScript to view the{" "}
+                <a href="https://marianatek.com/?ref_noscript" rel="nofollow">
+                  Web Integrations by Mariana Tek
+                </a>
+              </noscript>
             </div>
           </Container>
         </div>

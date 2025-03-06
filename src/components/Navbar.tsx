@@ -67,7 +67,7 @@ const Navbar = () => {
       if (window.location.pathname === path) {
         window.location.reload();
       }
-    }, 300);
+    }, 100);
   };
 
   // Styling for Nav Links
