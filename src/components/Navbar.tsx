@@ -55,19 +55,19 @@ const Navbar = () => {
     }, 500);
   }, []);
 
-  // Handle navigation updates
+  // Handle navigation updates (without manual history management)
   const handleNavigation = async (path) => {
+    // Check if the current path is different from the target
     if (location.pathname !== path) {
-      navigate(path); // Update URL using React Router
-      window.history.pushState({}, "", path); // Ensure browser-level URL update
+      navigate(path); // Let React Router handle the URL update
     }
 
-    // Wait for the URL update before reloading
+    // Delay the reload to ensure location is updated
     setTimeout(() => {
       if (window.location.pathname === path) {
         window.location.reload();
       }
-    }, 100);
+    }, 300); // Adjust timeout as needed to ensure page reloads properly
   };
 
   // Styling for Nav Links
