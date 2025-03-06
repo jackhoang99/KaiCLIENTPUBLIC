@@ -17,33 +17,56 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [location]);
 
-  // Inject Mariana Tek script when Navbar mounts
-  useEffect(() => {
-    const loadMarianaTek = () => {
+  // Ensure Mariana Tek script is fully loaded before execution continues
+  const loadMarianaTek = () => {
+    return new Promise((resolve) => {
       if (document.querySelector('script[src*="marianaiframes"]')) {
-        return; // Script already loaded
+        resolve();
+        return;
       }
 
       const scripts = ["polyfills", "js"];
+      let loadedScripts = 0;
+
       scripts.forEach((src) => {
         const script = document.createElement("script");
         script.src = `https://${TENANT_NAME}.marianaiframes.com/${src}?t=${new Date().getTime()}`;
         script.async = true;
+        script.onload = () => {
+          loadedScripts++;
+          if (loadedScripts === scripts.length) {
+            resolve();
+          }
+        };
         document.body.appendChild(script);
       });
-    };
+    });
+  };
 
-    loadMarianaTek();
+  useEffect(() => {
+    loadMarianaTek().then(() => console.log("✅ Mariana Tek scripts loaded!"));
+
+    // Debugging: Check if MarianaIntegrations is loaded properly
+    const checkMarianaLoaded = setInterval(() => {
+      if (window.MarianaIntegrations) {
+        clearInterval(checkMarianaLoaded);
+        console.log("✅ Mariana Integrations initialized!");
+      }
+    }, 500);
   }, []);
 
-  // Function to update URL & reload page
-  const handleNavigation = (path) => {
+  // Handle navigation updates
+  const handleNavigation = async (path) => {
     if (location.pathname !== path) {
-      navigate(path); // Update the URL without a full refresh
+      navigate(path); // Update URL using React Router
+      window.history.pushState({}, "", path); // Ensure browser-level URL update
     }
 
+    // Wait for the URL update before reloading
     setTimeout(() => {
-      window.location.reload(); // Ensure Mariana Tek reloads correctly
+      if (window.location.pathname === path) {
+        window.location.reload();
+      }
     }, 300);
   };
 
