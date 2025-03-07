@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // ✅ Use React Router
+import { Link } from "react-router-dom"; // ✅ Use for React pages only
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./ui/Logo";
@@ -40,22 +40,24 @@ const Navbar = () => {
           <Link to="/" className={navLinkStyle}>
             Home
           </Link>
-          <Link to="/schedule" className={navLinkStyle}>
+          <a href="/schedule.html" className={navLinkStyle}>
             Schedule
-          </Link>{" "}
+          </a>{" "}
           {/* ✅ Fixed */}
-          <Link to="/buy" className={navLinkStyle}>
+          <a href="/buy.html" className={navLinkStyle}>
             Buy
-          </Link>
+          </a>{" "}
+          {/* ✅ Fixed */}
           <Link to="/about" className={navLinkStyle}>
             About
           </Link>
           <Link to="/faq" className={navLinkStyle}>
             FAQ
           </Link>
-          <Link to="/account" className={navLinkStyle}>
+          <a href="/account.html" className={navLinkStyle}>
             Account
-          </Link>
+          </a>{" "}
+          {/* ✅ Fixed */}
         </div>
 
         {/* Mobile Menu Button */}
@@ -80,22 +82,32 @@ const Navbar = () => {
               <Link to="/" onClick={closeMenu} className={navLinkStyle}>
                 Home
               </Link>
-              <Link to="/schedule" onClick={closeMenu} className={navLinkStyle}>
+              <a
+                href="/schedule.html"
+                onClick={closeMenu}
+                className={navLinkStyle}
+              >
                 Schedule
-              </Link>{" "}
+              </a>{" "}
               {/* ✅ Fixed */}
-              <Link to="/buy" onClick={closeMenu} className={navLinkStyle}>
+              <a href="/buy.html" onClick={closeMenu} className={navLinkStyle}>
                 Buy
-              </Link>
+              </a>{" "}
+              {/* ✅ Fixed */}
               <Link to="/about" onClick={closeMenu} className={navLinkStyle}>
                 About
               </Link>
               <Link to="/faq" onClick={closeMenu} className={navLinkStyle}>
                 FAQ
               </Link>
-              <Link to="/account" onClick={closeMenu} className={navLinkStyle}>
+              <a
+                href="/account.html"
+                onClick={closeMenu}
+                className={navLinkStyle}
+              >
                 Account
-              </Link>
+              </a>{" "}
+              {/* ✅ Fixed */}
             </div>
           </motion.div>
         )}
