@@ -10,17 +10,17 @@ const Buy = () => {
         <div className="pt-32 pb-20">
           <Container>
             <motion.div
-              className="mb-16 relative text-center md:text-left"
+              className="mb-16 relative text-center md:text-left md:pl-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="font-display text-6xl md:text-[120px] tracking-wider mb-6">
+              <h1 className="font-display text-4xl md:text-8xl tracking-wider mb-6">
                 BOOK YOUR
                 <br />
                 EXPERIENCE
               </h1>
-              <p className="text-xl md:text-2xl font-light tracking-wide max-w-2xl">
+              <p className="text-xl md:text-2xl font-light tracking-wide max-w-2xl mx-auto md:mx-0">
                 Transform your fitness journey with our signature Lagree method
                 classes. Choose the package that best fits your lifestyle.
               </p>

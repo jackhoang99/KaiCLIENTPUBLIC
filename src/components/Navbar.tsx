@@ -12,7 +12,7 @@ const Navbar = () => {
   const closeMenu = () => setIsMenuOpen(false);
 
   const navLinkStyle =
-    "inline-block text-white hover:text-white/80 transition-colors tracking-widest uppercase text-sm border-b border-transparent hover:border-white pb-1";
+    "inline-block text-white hover:text-white/80 transition-colors tracking-widest uppercase text-sm border-b border-transparent hover:border-white pb-1 text-center";
 
   const activeLinkStyle = "border-white"; // Underlines active page
 
