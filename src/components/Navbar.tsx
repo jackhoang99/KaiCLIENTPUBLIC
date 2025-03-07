@@ -4,38 +4,49 @@ import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Logo from "./ui/Logo";
 
-const TENANT_NAME = "kailagreestudio"; // Mariana Tek tenant name
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const isAccountPage = location.pathname === '/account.html';
+  const isAccountPage = location.pathname === "/account.html";
 
   const closeMenu = () => setIsMenuOpen(false);
 
   const navLinkStyle =
-    "text-white hover:text-white/80 transition-colors tracking-widest uppercase text-sm border-b border-transparent hover:border-white pb-1";
+    "inline-block text-white hover:text-white/80 transition-colors tracking-widest uppercase text-sm border-b border-transparent hover:border-white pb-1";
 
-  // Navigation items configuration
+  const activeLinkStyle = "border-white"; // Underlines active page
+
+  // Navigation items
   const navItems = [
-    { path: '/', label: 'Home' },
-    { path: '/schedule.html', label: 'Schedule' },
-    { path: '/buy.html', label: 'Buy' },
-    { path: '/about', label: 'About' },
-    { path: '/faq', label: 'FAQ' },
+    { path: "/", label: "Home" },
+    { path: "/schedule.html", label: "Schedule" },
+    { path: "/buy.html", label: "Buy" },
+    { path: "/about", label: "About" },
+    { path: "/faq", label: "FAQ" },
+    { path: "/account.html", label: "Account" },
   ];
 
   // Render either Link or anchor tag based on current page
   const NavItem = ({ path, label }: { path: string; label: string }) => {
-    if (path.endsWith('.html')) {
+    const isActive = location.pathname === path;
+
+    if (path.endsWith(".html")) {
       return (
-        <a href={path} className={navLinkStyle}>
+        <a
+          href={path}
+          className={`${navLinkStyle} ${isActive ? activeLinkStyle : ""}`}
+          onClick={closeMenu}
+        >
           {label}
         </a>
       );
     }
     return (
-      <Link to={path} className={navLinkStyle}>
+      <Link
+        to={path}
+        className={`${navLinkStyle} ${isActive ? activeLinkStyle : ""}`}
+        onClick={closeMenu}
+      >
         {label}
       </Link>
     );
@@ -43,7 +54,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed w-full z-50 px-4 md:px-6 py-4 bg-transparent">
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center h-[38px] md:h-[104px]">
         {isAccountPage ? (
           <a href="/" className="inline-block">
             <Logo />
@@ -59,9 +70,6 @@ const Navbar = () => {
           {navItems.map((item) => (
             <NavItem key={item.path} {...item} />
           ))}
-          <a href="/account.html" className={navLinkStyle}>
-            Account
-          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -73,27 +81,18 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - Fully Centered */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 right-0 bg-black/90 py-6 px-4 md:hidden"
+            className="absolute top-full left-0 right-0 bg-black/90 py-6 px-4 md:hidden flex flex-col items-center justify-center text-center w-full space-y-6"
           >
-            <div className="flex flex-col space-x-6 text-white text-center">
-              {navItems.map((item) => (
-                <NavItem key={item.path} {...item} />
-              ))}
-              <a 
-                href="/account.html" 
-                onClick={closeMenu}
-                className={navLinkStyle}
-              >
-                Account
-              </a>
-            </div>
+            {navItems.map((item) => (
+              <NavItem key={item.path} {...item} />
+            ))}
           </motion.div>
         )}
       </AnimatePresence>

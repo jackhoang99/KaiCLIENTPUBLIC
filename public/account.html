@@ -60,17 +60,22 @@
           height: 96px; /* md:h-24 = 6rem = 96px */
         }
       }
-      @media (max-width: 768px) {
-        .mobile-menu {
-          display: none;
-        }
-        .mobile-menu.active {
-          display: flex;
-        }
-      }
+  @media (max-width: 768px) {
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      align-items: center; /* Center items horizontally */
+      justify-content: center; /* Center items vertically */
+      text-align: center; /* Center text */
+      width: 100%; /* Full width */
+    }
+    .mobile-menu.active {
+      display: flex;
+    }
+  }
       /* Footer styles */
       .footer-link {
-        color: #4A3419; /* darkBrown */
+        color: #4A3419;
         text-decoration: underline;
         font-size: 0.75rem;
       }
@@ -81,10 +86,28 @@
         color: #4A3419;
         font-size: 0.875rem;
       }
+      /* Social links */
+      .social-link {
+        color: #33291C;
+        transition: opacity 0.2s;
+      }
+      .social-link:hover {
+        opacity: 0.7;
+      }
+      .social-icon {
+        width: 20px;
+        height: 20px;
+      }
+            @media (min-width: 768px) {
+        .social-icon {
+          width: 24px;
+          height: 24px;
+        }
+      }
     </style>
   </head>
   <body>
-    <div class="relative min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col">
       <!-- Static Navbar -->
       <nav class="fixed w-full z-50 px-4 md:px-6 py-4 bg-transparent">
         <div class="flex justify-between items-center h-[38px] md:h-[104px]">
@@ -123,8 +146,8 @@
         <div id="mobileMenu" class="mobile-menu absolute top-full left-0 right-0 bg-black/90 py-6 px-4 md:hidden">
           <div class="flex flex-col space-y-6 text-white text-center">
             <a href="/" class="nav-link">Home</a>
-            <a href="/schedule" class="nav-link">Schedule</a>
-            <a href="/buy" class="nav-link">Buy</a>
+            <a href="/schedule.html" class="nav-link">Schedule</a>
+            <a href="/buy.html" class="nav-link">Buy</a>
             <a href="/about" class="nav-link">About</a>
             <a href="/faq" class="nav-link">FAQ</a>
             <a href="/account.html" class="nav-link active">Account</a>
@@ -140,14 +163,14 @@
               YOUR KAI ACCOUNT
             </h1>
             <div class="max-w-2xl mx-auto py-8 flex justify-center">
-              <div data-mariana-integrations="/account" class="w-full max-w-4xl h-[800px]"></div>
+              <div data-mariana-integrations="/account" class="w-full max-w-4xl"></div>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Footer -->
-      <footer class="w-full bg-sand py-2">
+      <footer class="w-full bg-sand py-2 mt-auto">
         <div class="max-w-[1920px] mx-auto px-8 relative">
           <div class="text-center mb-6">
             <p class="text-sm mb-1 footer-text">©2025 Kai Lagree Studio. All rights reserved.</p>
@@ -161,14 +184,34 @@
             </div>
           </div>
           
-          <div class="flex justify-center mb-6">
-            <!-- Social Links -->
-            <div id="socialLinks"></div>
+          <div class="flex justify-center mb-6 space-x-6">
+            <a href="https://www.instagram.com/kailagreestudio/" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="social-icon">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/kailagreestudio" target="_blank" rel="noopener noreferrer" class="social-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="social-icon">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+              </svg>
+            </a>
+            <a href="https://www.tiktok.com/@kailagreestudio" target="_blank" rel="noopener noreferrer" class="social-link">
+              <img 
+                src="https://toimygjblkpsemgbpwvo.supabase.co/storage/v1/object/sign/img/transparent%20tiktok%20logo.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWcvdHJhbnNwYXJlbnQgdGlrdG9rIGxvZ28ucG5nIiwiaWF0IjoxNzM2NzU0MTk3LCJleHAiOjQ4OTAzNTQxOTd9.KFsip0obPby_dvxEx1cB-_Bs-o1uxK4XiAg4p9Gcbfk&t=2025-01-13T07%3A43%3A17.788Z"
+                alt="TikTok"
+                class="social-icon"
+              />
+            </a>
           </div>
           
           <div class="absolute right-8 bottom-0">
-            <!-- Kai Logo -->
-            <img src="/src/assets/kai-logo.svg" alt="Kai Logo" class="w-[30px] h-[30px] md:w-16 md:h-16">
+            <img 
+              src="https://toimygjblkpsemgbpwvo.supabase.co/storage/v1/object/sign/img/KAI%20ONLY%20dark%20brown.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWcvS0FJIE9OTFkgZGFyayBicm93bi5zdmciLCJpYXQiOjE3MzY3NTEwMDgsImV4cCI6NDg5MDM1MTAwOH0.xendCjuFZaq-sYLE_kY-zibGDPAdKRoIrDgtB11Xq6o&t=2025-01-13T06%3A50%3A08.493Z"
+              alt="Kai Logo" 
+              class="w-[30px] h-[30px] md:w-16 md:h-16"
+            >
           </div>
         </div>
       </footer>
@@ -180,17 +223,6 @@
         const mobileMenu = document.getElementById('mobileMenu');
         mobileMenu.classList.toggle('active');
       }
-
-      // Add active class to current nav link
-      document.addEventListener('DOMContentLoaded', function() {
-        const currentPath = window.location.pathname;
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-          if (link.getAttribute('href') === currentPath) {
-            link.classList.add('active');
-          }
-        });
-      });
     </script>
 
     <!-- Mariana Tek integration script -->
@@ -207,11 +239,5 @@
         }
       })();
     </script>
-    <noscript>
-      Please enable JavaScript to view the
-      <a href="https://marianatek.com/?ref_noscript" rel="nofollow">
-        Web Integrations by Mariana Tek.
-      </a>
-    </noscript>
   </body>
 </html>
