@@ -54,7 +54,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed w-full z-50 px-4 md:px-6 py-4 bg-transparent">
-      <div className="flex justify-between items-center h-[38px] md:h-[104px]">
+      <div className="flex justify-between items-center h-[38px] md:h-[96px]">
         {isAccountPage ? (
           <a href="/" className="inline-block">
             <Logo />
