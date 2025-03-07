@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/output.css">
     <style>
       /* NavLink styles */
-      .nav-link {
+    .nav-link {
         color: white;
         text-transform: uppercase;
         font-size: 0.875rem;
@@ -111,6 +111,104 @@
         filter: blur(24px);
         z-index: -10;
       }
+
+      /* Layout styles */
+      .min-h-screen {
+        min-height: 100vh;
+      }
+      
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+      
+      /* Content styles */
+      .buy-hero-section {
+        margin-bottom: 4rem; /* mb-16 */
+        position: relative;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.8s forwards;
+      }
+      
+      .buy-title {
+        font-family: 'Italiana', serif;
+        font-size: 3.75rem; /* text-6xl */
+        line-height: 1.1;
+        letter-spacing: 0.1em; /* tracking-wider */
+        margin-bottom: 1.5rem; /* mb-6 */
+        color: #4A3419;
+      }
+      
+      .buy-description {
+        font-size: 1.25rem; /* text-xl */
+        font-weight: 300;
+        letter-spacing: 0.05em; /* tracking-wide */
+        max-width: 42rem; /* max-w-2xl */
+        line-height: 1.5;
+        color: #4A3419;
+        margin: 0 auto;
+      }
+      
+      /* Background decorations */
+      .decoration {
+        position: absolute;
+        width: 10rem; /* w-40 */
+        height: 10rem; /* h-40 */
+        background-color: rgba(0, 0, 0, 0.05); /* bg-black/5 */
+        border-radius: 9999px;
+        filter: blur(24px); /* blur-3xl */
+        z-index: -1;
+      }
+      
+      .decoration-right {
+        right: -5rem; /* -right-20 */
+        top: 0;
+      }
+      
+      .decoration-left {
+        left: -5rem; /* -left-20 */
+        bottom: 0;
+      }
+      
+      /* Loading spinner */
+      .loading-spinner {
+        border: 2px solid transparent;
+        border-bottom: 2px solid #000;
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        animation: spin 1s linear infinite;
+        margin: 0 auto;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg) }
+      }
+      
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      
+      @media (min-width: 768px) {
+        .buy-hero-section {
+          text-align: left;
+        }
+        
+        .buy-title {
+          font-size: 120px; /* md:text-[120px] */
+        }
+        
+        .buy-description {
+          font-size: 1.5rem; /* md:text-2xl */
+          margin: 0;
+        }
+      }
     </style>
   </head>
   <body>
@@ -166,20 +264,34 @@
       <div class="flex-grow">
         <div class="min-h-screen bg-sand">
           <div class="pt-32 pb-20">
-            <div class="container mx-auto px-4 md:px-6">
+            <div class="container">
               <div class="buy-hero-section">
                 <h1 class="buy-title">
-                  BOOK YOUR<br/>EXPERIENCE
+                  BOOK YOUR<br/>
+                  EXPERIENCE
                 </h1>
                 <p class="buy-description">
                   Transform your fitness journey with our signature Lagree method
                   classes. Choose the package that best fits your lifestyle.
                 </p>
+                <!-- Background Decorations -->
+                <div class="decoration decoration-right"></div>
+                <div class="decoration decoration-left"></div>
               </div>
 
-              <!-- Buy Integration -->
+              <!-- Mariana Tek Integration -->
               <div class="mt-20 max-w-4xl mx-auto">
-                <div data-mariana-integrations="/buy" class="w-full max-w-4xl h-[800px]"></div>
+                <div id="loadingSpinner" class="text-center py-12">
+                  <div class="loading-spinner"></div>
+                  <p class="mt-4 text-gray-600">Loading packages...</p>
+                </div>
+                <div id="marianaContainer" style="display: none;" data-mariana-integrations="/buy"></div>
+                <noscript>
+                  Please enable JavaScript to view the
+                  <a href="https://marianatek.com/?ref_noscript" rel="nofollow">
+                    Web Integrations by Mariana Tek
+                  </a>
+                </noscript>
               </div>
             </div>
           </div>
@@ -244,16 +356,46 @@
 
     <!-- Mariana Tek integration script -->
     <script>
-      (function () {
-        var TENANT_NAME = 'kailagreestudio';
-        var d = document;
-        var sA = ['polyfills', 'js'];
-        for (var i = 0; i < sA.length; i++) {
-          var s = d.createElement('script');
-          s.src = 'https://' + TENANT_NAME + '.marianaiframes.com/' + sA[i];
-          s.setAttribute('data-timestamp', String(new Date().getTime()));
-          (d.head || d.body).appendChild(s);
-        }
+      (function() {
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const marianaContainer = document.getElementById('marianaContainer');
+        
+        const loadScript = (src) => {
+          return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = `https://kailagreestudio.marianaiframes.com/${src}?t=${new Date().getTime()}`;
+            script.async = true;
+            
+            script.onload = () => resolve(true);
+            script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+            
+            document.body.appendChild(script);
+          });
+        };
+        
+        const initializeMarianaTek = async () => {
+          try {
+            // Remove any existing Mariana scripts
+            document.querySelectorAll('script[src*="marianaiframes"]')
+              .forEach(script => script.remove());
+            
+            window.MarianaIntegrations = undefined;
+            
+            await loadScript('polyfills');
+            await loadScript('js');
+            
+            // Hide loading spinner and show Mariana container
+            loadingSpinner.style.display = 'none';
+            marianaContainer.style.display = 'block';
+          } catch (error) {
+            console.error('Error loading Mariana Tek scripts:', error);
+            loadingSpinner.innerHTML = `
+              <p class="text-red-600">Failed to load packages. Please try refreshing the page.</p>
+            `;
+          }
+        };
+        
+        initializeMarianaTek();
       })();
     </script>
   </body>
