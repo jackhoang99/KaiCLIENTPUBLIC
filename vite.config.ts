@@ -1,11 +1,12 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     include: ["lucide-react"],
   },
-  root: ".", // project root
-  publicDir: "public", // ensure this line exists
-  build: {
-    outDir: "dist",
+  resolve: {
+    dedupe: ["lucide-react"],
   },
 });
