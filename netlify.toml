@@ -2,7 +2,3 @@
   from = "/*"
   to = "/index.html"
   status = 200
-
-[build.processing]
-  js_bundle = false
-  js_minify = false

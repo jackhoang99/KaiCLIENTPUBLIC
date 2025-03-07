@@ -1,70 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import Container from "../components/layout/Container";
+import React from "react";
 import PageLayout from "../components/layout/PageLayout";
 
-const TENANT_NAME = "kailagreestudio";
-
 const Schedule = () => {
-  const location = useLocation();
-  const [integrationKey, setIntegrationKey] = useState(0);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const existingIntegration = document.querySelector(
-      "[data-mariana-integrations]"
-    );
-    if (existingIntegration) existingIntegration.innerHTML = "";
-
-    window.MarianaIntegrations = undefined;
-
-    const loadScript = (src) => {
-      return new Promise((resolve, reject) => {
-        if (document.querySelector(`script[src*="${src}"]`)) {
-          resolve(true);
-          return;
-        }
-
-        const script = document.createElement("script");
-        script.src = `https://${TENANT_NAME}.marianaiframes.com/${src}?t=${new Date().getTime()}`;
-        script.async = true;
-        script.onload = () => resolve(true);
-        script.onerror = () =>
-          reject(new Error(`Failed to load script: ${src}`));
-        document.body.appendChild(script);
-      });
-    };
-
-    loadScript("polyfills")
-      .then(() => loadScript("js"))
-      .then(() => {
-        console.log("✅ Mariana Tek scripts loaded!");
-        setIntegrationKey((prevKey) => prevKey + 1);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setLoading(false);
-      });
-  }, [location.search]); // Detects query string changes like `_mt`
-
-  // Debugging: Check if Mariana Tek actually loads
-  useEffect(() => {
-    const checkMarianaLoaded = setInterval(() => {
-      if (window.MarianaIntegrations) {
-        clearInterval(checkMarianaLoaded);
-        console.log("✅ Mariana Integrations initialized!");
-      }
-    }, 500);
-  }, []);
-
-  // Extract `_mt=` correctly
-  const params = new URLSearchParams(location.search);
-  const marianaPath = params.get("_mt") || "/schedule/daily";
-
   return (
     <PageLayout>
       <div className="min-h-screen bg-sand">
+        {/* Header Section */}
         <div className="relative h-[250px] md:h-[400px] w-full">
           <div className="absolute inset-0 bg-black/40 z-10" />
           <img
@@ -79,21 +20,13 @@ const Schedule = () => {
           </div>
         </div>
 
-        <div className="py-8 md:py-20">
-          <Container>
-            <div className="max-w-4xl mx-auto">
-              {loading ? (
-                <div className="flex justify-center items-center">
-                  <div className="w-12 h-12 border-4 border-gray-300 border-t-gray-600 rounded-full animate-spin"></div>
-                </div>
-              ) : (
-                <div
-                  key={integrationKey}
-                  data-mariana-integrations={marianaPath}
-                />
-              )}
-            </div>
-          </Container>
+        {/* Embedded schedule.html using an iframe */}
+        <div className="py-8 md:py-20 flex justify-center">
+          <iframe
+            src="/schedule.html" // Ensure schedule.html is in public/
+            className="w-full max-w-4xl h-[800px] border-none"
+            title="Schedule"
+          />
         </div>
       </div>
     </PageLayout>
