@@ -1,0 +1,350 @@
+/* Import fonts */
+@import url("https://fonts.googleapis.com/css2?family=Italiana&family=Montserrat:wght@300;400;500&family=Bodoni+Moda:opsz@6..96&display=swap");
+
+/* Base styles */
+body {
+  font-family: "Montserrat", sans-serif;
+  color: #33291c;
+  margin: 0;
+  min-height: 100vh;
+}
+
+h1, h2 {
+  font-family: "Italiana", serif;
+  color: #33291c;
+}
+
+/* Navigation styles */
+.nav-link {
+  font-family: "Montserrat", sans-serif;
+  color: white;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.8;
+  border-bottom-color: white;
+}
+
+.nav-link.active {
+  border-bottom-color: white;
+}
+
+.logo {
+  width: 30px;
+  height: 30px;
+  transition: all 0.3s ease;
+}
+
+/* Header section styles */
+.header-section {
+  position: relative;
+  height: 250px;
+}
+
+.header-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.header-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.header-content {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-title {
+  font-family: "Italiana", serif;
+  font-size: 3rem;
+  color: white;
+  letter-spacing: 0.1em;
+}
+
+/* Buy page specific styles */
+.buy-hero-section {
+  margin-bottom: 2rem;
+  text-align: left;
+  max-width: 90%;
+  margin-left: 0;
+}
+
+.buy-title {
+  font-family: "Italiana", serif;
+  font-size: 84px;
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  color: #33291c;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.buy-description {
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  line-height: 1.5;
+  color: #33291c;
+  font-weight: 300;
+  max-width: 640px;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+/* Container and spacing */
+.container {
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.pt-32 {
+  padding-top: 8rem;
+}
+
+.pb-20 {
+  padding-bottom: 5rem;
+}
+
+/* Background */
+.bg-sand {
+  background-color: #EAE6E1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .buy-title {
+    font-size: 48px;
+    margin-bottom: 1.5rem;
+  }
+
+  .buy-description {
+    font-size: 18px;
+  }
+
+  .buy-hero-section {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+}
+
+/* Mariana integration container */
+[data-mariana-integrations="/buy"] {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: 600px;
+}
+
+/* Footer styles */
+.footer-link {
+  color: #4A3419;
+  text-decoration: underline;
+  font-size: 0.75rem;
+}
+
+.footer-link:hover {
+  text-decoration: none;
+}
+
+.footer-text {
+  color: #4A3419;
+  font-size: 0.875rem;
+}
+
+/* Mobile menu styles */
+.mobile-menu {
+  display: none;
+}
+
+.mobile-menu.active {
+  display: flex;
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  .logo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .header-section {
+    height: 400px;
+  }
+
+  .header-title {
+    font-size: 6rem;
+  }
+
+  .hero-title {
+    font-size: 7.5rem;
+    text-align: left;
+  }
+
+  .hero-description {
+    font-size: 1.5rem;
+  }
+
+  .buy-title {
+    font-size: 120px;
+  }
+}
+
+/* Buy page specific styles matching React component */
+.animate-fade-in {
+  animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.decoration-blur {
+  position: absolute;
+  width: 10rem;
+  height: 10rem;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 9999px;
+  filter: blur(24px);
+  z-index: -10;
+}
+
+/* Typography */
+.font-display {
+  font-family: 'Gilda Display', serif;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1920px;
+}
+
+/* Spacing */
+.pt-32 {
+  padding-top: 8rem;
+}
+
+.pb-20 {
+  padding-bottom: 5rem;
+}
+
+.mb-16 {
+  margin-bottom: 4rem;
+}
+
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-20 {
+  margin-top: 5rem;
+}
+
+/* Text styles */
+.text-6xl {
+  font-size: 3.75rem;
+  line-height: 1;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+.tracking-wide {
+  letter-spacing: 0.025em;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+/* Max width */
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.max-w-4xl {
+  max-width: 56rem;
+}
+
+/* Media queries */
+@media (min-width: 768px) {
+  .md\:text-\[120px\] {
+    font-size: 120px;
+  }
+
+  .md\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  .md\:text-left {
+    text-align: left;
+  }
+}
+
+/* Layout */
+.relative {
+  position: relative;
+}
+
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* Navbar transition */
+.navbar {
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.navbar.scrolled {
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+/* Account page styles */
+.account-title {
+  font-family: "Italiana", serif;
+  font-size: 48px;
+  color: #33291c;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* Schedule page styles */
+.header-title {
+  font-family: "Italiana", serif;
+  font-size: 3rem;
+  color: white;
+  letter-spacing: 0.1em;
+} 

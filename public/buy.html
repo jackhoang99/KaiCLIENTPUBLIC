@@ -4,11 +4,187 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Schedule - Kai</title>
+    <title>Buy - Kai</title>
     <link rel="stylesheet" href="/src/index.css">
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+      /* NavLink styles */
+      .nav-link {
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.875rem;
+        letter-spacing: 0.1em;
+        padding-bottom: 0.25rem;
+        border-bottom: 1px solid transparent;
+        transition: all 0.2s;
+      }
+      .nav-link:hover {
+        opacity: 0.8;
+        border-bottom-color: white;
+      }
+      .nav-link.active {
+        border-bottom-color: white;
+      }
+      .logo {
+        width: 30px;
+        height: 30px;
+        mix-blend-mode: multiply;
+      }
+      @media (min-width: 768px) {
+        .logo {
+          width: 96px;
+          height: 96px;
+        }
+      }
+      @media (max-width: 768px) {
+        .mobile-menu {
+          display: none;
+        }
+        .mobile-menu.active {
+          display: flex;
+        }
+      }
+      
+      /* Buy page specific styles */
+      .font-display {
+        font-family: 'Gilda Display', serif;
+      }
+      .text-6xl {
+        font-size: 4rem;
+      }
+      .tracking-wider {
+        letter-spacing: 0.05em;
+      }
+      .text-xl {
+        font-size: 1.25rem;
+      }
+      .text-2xl {
+        font-size: 1.5rem;
+      }
+      .font-light {
+        font-weight: 300;
+      }
+      .max-w-2xl {
+        max-width: 42rem;
+      }
+      .decoration-blur {
+        position: absolute;
+        width: 10rem;
+        height: 10rem;
+        background-color: rgba(0, 0, 0, 0.05);
+        border-radius: 9999px;
+        filter: blur(24px);
+        z-index: -10;
+      }
+    </style>
   </head>
   <body>
-    <div data-mariana-integrations="/buy"></div>
+    <div class="relative min-h-screen flex flex-col">
+      <!-- Static Navbar -->
+      <nav class="fixed w-full z-50 px-4 md:px-6 py-4 bg-transparent">
+        <div class="flex justify-between items-center h-[38px] md:h-[104px]">
+          <a href="/" class="inline-block">
+            <img 
+              src="https://toimygjblkpsemgbpwvo.supabase.co/storage/v1/object/sign/img/Kai%20mark%20white.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWcvS2FpIG1hcmsgd2hpdGUucG5nIiwiaWF0IjoxNzM2NzU5MzM4LCJleHAiOjQ4OTAzNTkzMzh9.xexmS5gpouiH8hU4PLsGYFfSwp57mzmA0epO4azFNJU&t=2025-01-13T09%3A08%3A58.907Z"
+              alt="KAI"
+              class="logo"
+            >
+          </a>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex space-x-12">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/schedule.html" class="nav-link">Schedule</a>
+            <a href="/buy.html" class="nav-link active">Buy</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="/faq" class="nav-link">FAQ</a>
+            <a href="/account.html" class="nav-link">Account</a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button 
+            class="md:hidden text-white p-2"
+            onclick="toggleMobileMenu()"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div id="mobileMenu" class="mobile-menu absolute top-full left-0 right-0 bg-black/90 py-6 px-4 md:hidden">
+          <div class="flex flex-col space-y-6 text-white text-center">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/schedule.html" class="nav-link">Schedule</a>
+            <a href="/buy.html" class="nav-link active">Buy</a>
+            <a href="/about" class="nav-link">About</a>
+            <a href="/faq" class="nav-link">FAQ</a>
+            <a href="/account.html" class="nav-link">Account</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="min-h-screen bg-sand">
+        <div class="pt-32 pb-20">
+          <div class="container mx-auto px-4 md:px-6">
+            <div class="buy-hero-section">
+              <h1 class="buy-title">
+                BOOK YOUR<br/>EXPERIENCE
+              </h1>
+              <p class="buy-description">
+                Transform your fitness journey with our signature Lagree method
+                classes. Choose the package that best fits your lifestyle.
+              </p>
+            </div>
+
+            <!-- Buy Integration -->
+            <div class="mt-20 max-w-4xl mx-auto">
+              <div data-mariana-integrations="/buy" class="w-full max-w-4xl h-[800px]"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="w-full bg-sand py-2">
+        <div class="max-w-[1920px] mx-auto px-8 relative">
+          <div class="text-center mb-6" style="color: #4A3419;">
+            <p class="text-sm mb-1">©2025 Kai Lagree Studio. All rights reserved.</p>
+            <div class="flex justify-center space-x-4">
+              <a href="/privacy-policy" class="text-xs underline hover:no-underline" style="color: #4A3419;">
+                Privacy Policy
+              </a>
+              <a href="/terms" class="text-xs underline hover:no-underline" style="color: #4A3419;">
+                Terms of Service
+              </a>
+            </div>
+          </div>
+          
+          <div class="flex justify-center mb-6">
+            <!-- Social Links -->
+            <div id="socialLinks"></div>
+          </div>
+          
+          <div class="absolute right-8 bottom-0">
+            <img src="/src/assets/kai-logo.svg" alt="Kai Logo" class="w-[30px] h-[30px] md:w-16 md:h-16">
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Mobile menu toggle script -->
+    <script>
+      function toggleMobileMenu() {
+        const mobileMenu = document.getElementById('mobileMenu');
+        mobileMenu.classList.toggle('active');
+      }
+    </script>
+
+    <!-- Scripts -->
     <script>
       (function () {
         var TENANT_NAME = 'kailagreestudio';
@@ -17,16 +193,10 @@
         for (var i = 0; i < sA.length; i++) {
           var s = d.createElement('script');
           s.src = 'https://' + TENANT_NAME + '.marianaiframes.com/' + sA[i];
-          s.setAttribute('data-timestamp', +new Date());
+          s.setAttribute('data-timestamp', String(new Date().getTime()));
           (d.head || d.body).appendChild(s);
         }
       })();
     </script>
-    <noscript>
-      Please enable JavaScript to view the
-      <a href="https://marianatek.com/?ref_noscript" rel="nofollow">
-        Web Integrations by Mariana Tek.
-      </a>
-    </noscript>
   </body>
 </html>

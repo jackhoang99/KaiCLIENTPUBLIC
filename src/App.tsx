@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -9,14 +9,16 @@ import Schedule from "./pages/Schedule";
 import Account from "./pages/Account";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
-import CookieBanner from "./components/CookieBanner"; // Import CookieBanner
 import { colors } from "./constants/colors";
 
 const App: React.FC = () => {
+  const location = useLocation();
+  const isAccountPage = location.pathname === "/account.html";
+
   return (
-    <Router>
-      <div className="min-h-screen" style={{ backgroundColor: colors.sand }}>
-        <Navbar />
+    <div className="min-h-screen" style={{ backgroundColor: colors.sand }}>
+      <Navbar />
+      {!isAccountPage && (
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -27,8 +29,8 @@ const App: React.FC = () => {
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
         </Routes>
-      </div>
-    </Router>
+      )}
+    </div>
   );
 };
 
