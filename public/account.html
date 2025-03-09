@@ -52,12 +52,14 @@
       .logo {
         width: 30px;
         height: 30px;
+        margin-top: 4px;
         mix-blend-mode: multiply;
       }
       @media (min-width: 768px) {
         .logo {
-          width: 96px; /* md:w-24 = 6rem = 96px */
-          height: 96px; /* md:h-24 = 6rem = 96px */
+          width: 96px;
+          height: 96px;
+          margin-top: 0;
         }
       }
   @media (max-width: 768px) {
@@ -102,6 +104,30 @@
         .social-icon {
           width: 24px;
           height: 24px;
+        }
+      }
+      /* Navigation container */
+      .nav-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        padding: 1rem;
+        background-color: transparent;
+      }
+      .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 38px;
+      }
+      @media (min-width: 768px) {
+        .nav-content {
+          height: 96px;
+        }
+        .nav-container {
+          padding: 1rem 1.5rem;
         }
       }
     </style>
