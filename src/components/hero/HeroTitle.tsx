@@ -10,7 +10,6 @@ const HeroTitle = () => {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
       >
-        COMING SOON
       </motion.h1>
     </div>
   );
