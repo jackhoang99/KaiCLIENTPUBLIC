@@ -1,17 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 import HeroTitle from "./hero/HeroTitle";
-import LocationScroll from "./hero/LocationScroll";
 import { useHero } from "../hooks/useHero";
 import LoadingSpinner from "./ui/LoadingSpinner";
 
 const Hero = () => {
   const { image, loading, error } = useHero();
 
-  const defaultImage = "https://static.wixstatic.com/media/8c7d69_35e0e42e65954df7a4e29eea84f728bb~mv2.jpg/v1/fill/w_1202,h_918,fp_0.50_0.50,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/AdobeStock_227531282.jpg";
+  const defaultImage =
+    "https://toimygjblkpsemgbpwvo.supabase.co/storage/v1/object/sign/img/studiohome10.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWcvc3R1ZGlvaG9tZTEwLmpwZyIsImlhdCI6MTc0MjcwOTc1MCwiZXhwIjoxNzc0MjQ1NzUwfQ.64AlBZWmMq5DxW0t18Z4XudxLjuyHlpZwb4AzjS_g-g";
 
   return (
-    <div className="relative h-screen">
+    <div className="relative h-[70vh] md:h-screen">
       <motion.div
         className="absolute inset-0"
         initial={{ opacity: 0 }}
@@ -39,7 +39,6 @@ const Hero = () => {
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4">
         <HeroTitle />
       </div>
-      <LocationScroll />
     </div>
   );
 };
