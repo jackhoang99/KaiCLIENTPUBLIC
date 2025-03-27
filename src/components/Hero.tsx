@@ -1,17 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
-import HeroTitle from "./hero/HeroTitle";
 import { useHero } from "../hooks/useHero";
 import LoadingSpinner from "./ui/LoadingSpinner";
 
 const Hero = () => {
-  const { image, loading, error } = useHero();
+  const { desktopImage, mobileImage, loading, error } = useHero();
 
-  const defaultImage =
+  const defaultDesktopImage =
     "https://toimygjblkpsemgbpwvo.supabase.co/storage/v1/object/sign/img/studiohome10.jpg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpbWcvc3R1ZGlvaG9tZTEwLmpwZyIsImlhdCI6MTc0MjcwOTc1MCwiZXhwIjoxNzc0MjQ1NzUwfQ.64AlBZWmMq5DxW0t18Z4XudxLjuyHlpZwb4AzjS_g-g";
+  const defaultMobileImage = defaultDesktopImage;
 
   return (
-    <div className="relative h-[70vh] md:h-screen">
+    <div className="relative h-screen">
       <motion.div
         className="absolute inset-0"
         initial={{ opacity: 0 }}
@@ -23,22 +23,33 @@ const Hero = () => {
             <LoadingSpinner size="large" />
           </div>
         ) : error ? (
-          <img
-            src={defaultImage}
-            className="w-full h-full object-cover brightness-75"
-            alt="KAI Fitness Studio"
-          />
+          <>
+            <img
+              src={defaultDesktopImage}
+              className="hidden md:block w-full h-full object-cover brightness-75"
+              alt="KAI Fitness Studio"
+            />
+            <img
+              src={defaultMobileImage}
+              className="md:hidden w-full h-full object-cover brightness-75"
+              alt="KAI Fitness Studio"
+            />
+          </>
         ) : (
-          <img
-            src={image?.image_url || defaultImage}
-            className="w-full h-full object-cover brightness-75"
-            alt="KAI Fitness Studio"
-          />
+          <>
+            <img
+              src={desktopImage?.image_url || defaultDesktopImage}
+              className="hidden md:block w-full h-full object-cover brightness-75"
+              alt="KAI Fitness Studio"
+            />
+            <img
+              src={mobileImage?.image_url || defaultMobileImage}
+              className="md:hidden w-full h-full object-cover brightness-75"
+              alt="KAI Fitness Studio"
+            />
+          </>
         )}
       </motion.div>
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-white px-4">
-        <HeroTitle />
-      </div>
     </div>
   );
 };
