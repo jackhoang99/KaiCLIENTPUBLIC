@@ -11,7 +11,7 @@ const Hero = () => {
   const defaultMobileImage = defaultDesktopImage;
 
   return (
-    <div className="relative h-screen">
+    <div className="relative h-[600px] md:h-screen">
       <motion.div
         className="absolute inset-0"
         initial={{ opacity: 0 }}
