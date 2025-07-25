@@ -47,7 +47,7 @@ const FAQItem = ({ question, answer, isLast, index }: FAQItemProps) => {
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <p className="mt-4 text-lg font-light leading-relaxed text-black/80 pr-8">
+            <p className="mt-4 text-lg font-light leading-relaxed text-black/80 pr-8 faq-answer">
               {answer}
             </p>
           </motion.div>

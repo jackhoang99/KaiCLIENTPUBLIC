@@ -15,4 +15,8 @@
     font-family: "Italiana", serif;
     color: #33291c;
   }
+
+  .faq-answer {
+    white-space: pre-line;
+  }
 }
