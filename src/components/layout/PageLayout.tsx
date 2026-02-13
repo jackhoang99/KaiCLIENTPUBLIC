@@ -20,7 +20,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
       <footer className="w-full bg-sand py-2">
         <div className="max-w-[1920px] mx-auto px-8 relative">
           <div className="text-center mb-6" style={{ color: colors.darkBrown }}>
-            <p className="text-sm mb-1">©2025 Kai Lagree Studio. All rights reserved.</p>
+            <p className="text-sm mb-1">©{new Date().getFullYear()} Kai Lagree Studio. All rights reserved.</p>
             <div className="flex justify-center space-x-4">
               <Link to="/privacy-policy" className="text-xs underline hover:no-underline" style={{ color: colors.darkBrown }}>
                 Privacy Policy
